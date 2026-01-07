@@ -52,3 +52,31 @@ Berdasarkan implementasi pada studi kasus ini, berikut perbandingan performa ked
 | **Kesesuaian Kasus** | Kurang ideal untuk data besar dengan kebutuhan *join* data spasio-temporal yang berat. | **Lebih unggul** untuk studi kasus ini karena efisiensi integrasi data *flights* & *weather* yang dilakukan terpusat di warehouse. |
 
 ---
+
+## 🚀 Cara Menjalankan Pipeline (Step-by-Step)
+
+Berikut adalah panduan langkah demi langkah untuk menyiapkan database dan menjalankan kedua jenis pipeline.
+
+### PENTING
+Sebelum menjalankan kode, jalankan terlebih dahulu `requirements.txt` di bawah dengan perintah berikut.
+```bash
+pip install requirements.txt
+```
+
+### 1. Menjalankan Pipeline ETL (Python-Based)
+Pipeline ini memproses data secara lokal menggunakan Pandas sebelum dimuat ke warehouse.
+
+**Langkah Eksekusi:**
+1. Masuk ke direktori etl_pipeline.
+2. Pada terminal, jalankan perintah berikut.
+``` bash
+python main1.py
+```
+
+### 2. Menjalankan Pipeline ELT
+Pipeline ini memproses data secara lokal maupun di Google Colab.
+
+**Langkah Eksekusi:**
+1. Masuk ke direktori elt_pipeline.
+2. Download file ipynb, dan jalankan di lokal maupun di Google Colab.
+
