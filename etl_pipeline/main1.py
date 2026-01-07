@@ -3,7 +3,7 @@ import extraction_source1  # Modul untuk Flight.csv
 import extraction_source2  # Modul untuk Weather.csv
 import transformation   # Modul untuk Transformasi Data
 import data_validation  # Modul untuk Validasi Data
-import load_warehouse as db_connection   # [BARU] Modul untuk Koneksi Database
+import load_warehouse   # [BARU] Modul untuk Koneksi Database
 
 def main():
     print("==========================================")
@@ -85,18 +85,15 @@ def main():
     data_validation.validate_data(flight_df_cleaned, df_final, weather_df_std)
 
 
-    # # ---------------------------------------------------------
-    # # TAHAP 7: LOADING TO DATABASE
-    # # ---------------------------------------------------------
-    # print("\n>>> PHASE 7: LOADING TO DATABASE")
-    
-    # # Memanggil fungsi loading dari db_connection.py
-    # # Kita beri nama tabel tujuan 'gold_flight_weather'
-    # try:
-    #     db_connection.load_final_merged_df_to_public_gold(df_final, table_name="gold_flight_weather")
-    # except Exception as e:
-    #     print(f"[CRITICAL ERROR] Gagal menyimpan ke Database: {e}")
-    #     # Opsional: return atau exit jika loading adalah langkah krusial
+    # ---------------------------------------------------------
+    # TAHAP 7: LOADING TO DATABASE
+    # ---------------------------------------------------------
+# ---------------------------------------------------------
+    # TAHAP 7: LOAD TO WAREHOUSE
+    # ---------------------------------------------------------
+    print("\n>>> PHASE 7: LOAD TO DATA WAREHOUSE")
+    # Menggunakan fungsi baru dengan Star Schema & COPY command
+    load_warehouse.load_star_schema_to_dw(df_final)
 
 
     # ---------------------------------------------------------
