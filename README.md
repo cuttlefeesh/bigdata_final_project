@@ -58,7 +58,7 @@ Berdasarkan implementasi pada studi kasus ini, berikut perbandingan performa ked
 Berikut adalah panduan langkah demi langkah untuk menyiapkan database dan menjalankan kedua jenis pipeline.
 
 ### PENTING
-Sebelum menjalankan kode, jalankan terlebih dahulu `requirements.txt` di bawah dengan perintah berikut.
+Sebelum menjalankan kode, clone repository ini terlebih dahulu dan install depdencies dengan perintah berikut.
 ```bash
 pip install requirements.txt
 ```
