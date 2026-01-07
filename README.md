@@ -4,7 +4,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15%2B-336791?style=for-the-badge&logo=postgresql)
 ![Power BI](https://img.shields.io/badge/Power_BI-Dashboard-F2C811?style=for-the-badge&logo=powerbi)
 
-[cite_start]**Disusun Oleh Tim Mahasiswa S1 Teknik Komputer Telkom University:** [cite: 3, 5, 6]
+**Disusun Oleh Tim Mahasiswa S1 Teknik Komputer Telkom University:**
 * **Muhammad Dafi Fathurrahman** (1103220186) - *Pipeline ETL*
 * **Ryan Darell Adyatma** (1103223007) - *Pipeline ELT*
 * **Chandra Aulia Haswangga** (1103223163) - *Dashboard Analitik*
@@ -13,13 +13,9 @@
 
 ## 📌 Deskripsi Studi Kasus
 
-[cite_start]Sektor penerbangan Amerika Serikat menghadapi tantangan efisiensi operasional yang kompleks akibat variabilitas cuaca[cite: 10]. [cite_start]Proyek ini mengembangkan solusi *Big Data Analytics* untuk menganalisis korelasi antara kondisi cuaca dan kinerja penerbangan (2019–2023) pada 10 kota dengan lalu lintas terpadat, termasuk Chicago, Atlanta, dan New York[cite: 11, 143].
+Sektor penerbangan Amerika Serikat menghadapi tantangan efisiensi operasional yang kompleks akibat variabilitas cuaca[cite: 10]. [cite_start]Proyek ini mengembangkan solusi *Big Data Analytics* untuk menganalisis korelasi antara kondisi cuaca dan kinerja penerbangan (2019–2023) pada 10 kota dengan lalu lintas terpadat, termasuk Chicago, Atlanta, dan New York.
 
-[cite_start]Masalah utama yang diselesaikan adalah integrasi data penerbangan yang bersifat transaksional dengan data cuaca *time-series* dari berbagai sumber yang memiliki struktur berbeda [cite: 109-111]. [cite_start]Sistem ini membandingkan implementasi pipeline **ETL** dan **ELT** untuk menghasilkan *Data Warehouse* yang mendukung analisis metrik seperti *On-Time Performance* (OTP) dan tingkat pembatalan (*Cancellation Rate*)[cite: 12, 14].
-
-**Temuan Kunci:**
-* [cite_start]Tingkat OTP tercatat sebesar **66,67%** dan *Cancellation Rate* sebesar **2,75%**[cite: 14].
-* [cite_start]Ditemukan anomali bahwa **32,05%** pembatalan terjadi saat cuaca cerah, mengindikasikan adanya faktor gangguan non-cuaca yang dominan[cite: 15].
+Masalah utama yang diselesaikan adalah integrasi data penerbangan yang bersifat transaksional dengan data cuaca *time-series* dari berbagai sumber yang memiliki struktur berbeda [cite: 109-111]. Sistem ini membandingkan implementasi pipeline **ETL** dan **ELT** untuk menghasilkan *Data Warehouse* yang mendukung analisis metrik seperti *On-Time Performance* (OTP) dan tingkat pembatalan (*Cancellation Rate*)
 
 ---
 
@@ -29,23 +25,23 @@ Proyek ini menerapkan dua desain arsitektur pipeline untuk tujuan komparasi:
 
 ### 1. Pipeline ETL (Extract-Transform-Load)
 Pemrosesan data dilakukan secara lokal menggunakan Python sebelum dimuat ke penyimpanan.
-* [cite_start]**Extract:** Mengambil data CSV dari Kaggle dan data cuaca via Open-Meteo API [cite: 252-253].
-* **Transform (Lokal):** Menggunakan library **Pandas**. [cite_start]Proses mencakup *cleaning* (imputasi nilai NaN, penghapusan baris inkonsisten), standardisasi kolom, *encoding* kategorikal, dan *feature engineering* (seperti menghitung selisih suhu dan tekanan udara antara bandara asal dan tujuan) [cite: 256-263].
-* [cite_start]**Load:** Data yang sudah bersih dimuat ke tabel fakta dan dimensi di database PostgreSQL[cite: 265].
+* **Extract:** Mengambil data CSV dari Kaggle dan data cuaca via Open-Meteo API.
+* **Transform (Lokal):** Menggunakan library **Pandas**. Proses mencakup *cleaning* (imputasi nilai NaN, penghapusan baris inkonsisten), standardisasi kolom, *encoding* kategorikal, dan *feature engineering* (seperti menghitung selisih suhu dan tekanan udara antara bandara asal dan tujuan) [cite: 256-263].
+* **Load:** Data yang sudah bersih dimuat ke tabel fakta dan dimensi di database PostgreSQL.
 
 ### 2. Pipeline ELT (Extract-Load-Transform)
 Pemrosesan data dilakukan sepenuhnya di dalam *Data Warehouse*.
-* [cite_start]**Extract & Load:** Memuat data mentah (*raw*) langsung ke schema `raw` di PostgreSQL/Data Lake tanpa pra-pemrosesan[cite: 268].
-* **Transform (In-Database):** Menggunakan **SQL**. Data diproses bertahap dari layer `raw` -> `stg` (staging) -> `gold` (final). [cite_start]Transformasi meliputi *cleaning*, *joining* kompleks antar tabel, serta validasi kualitas data secara terpusat di database[cite: 270, 436].
+* **Extract & Load:** Memuat data mentah (*raw*) langsung ke schema `raw` di PostgreSQL/Data Lake tanpa pra-pemrosesan[cite: 268].
+* **Transform (In-Database):** Menggunakan **SQL**. Data diproses bertahap dari layer `raw` -> `stg` (staging) -> `gold` (final). Transformasi meliputi *cleaning*, *joining* kompleks antar tabel, serta validasi kualitas data secara terpusat di database.
 
 **Visualisasi Akhir:**
-[cite_start]Data dari warehouse (schema `gold`) dihubungkan ke **Microsoft Power BI** untuk visualisasi dashboard interaktif [cite: 471-472].
+Data dari warehouse (schema `gold`) dihubungkan ke **Microsoft Power BI** untuk visualisasi dashboard interaktif.
 
 ---
 
 ## ⚖️ Perbedaan ETL dan ELT yang Digunakan
 
-[cite_start]Berdasarkan implementasi pada studi kasus ini, berikut perbandingan performa kedua pendekatan[cite: 508]:
+Berdasarkan implementasi pada studi kasus ini, berikut perbandingan performa kedua pendekatan:
 
 | Aspek | ETL (Extract-Transform-Load) | ELT (Extract-Load-Transform) |
 | :--- | :--- | :--- |
@@ -56,14 +52,3 @@ Pemrosesan data dilakukan sepenuhnya di dalam *Data Warehouse*.
 | **Kesesuaian Kasus** | Kurang ideal untuk data besar dengan kebutuhan *join* data spasio-temporal yang berat. | **Lebih unggul** untuk studi kasus ini karena efisiensi integrasi data *flights* & *weather* yang dilakukan terpusat di warehouse. |
 
 ---
-
-## 🚀 Cara Menjalankan Pipeline (Step-by-Step)
-
-[cite_start]Berikut adalah panduan menjalankan sistem berdasarkan struktur direktori repositori [cite: 597-608].
-
-### 1. Persiapan Lingkungan
-Clone repositori dan install dependensi Python.
-```bash
-git clone [https://github.com/cuttlefeesh/bigdata_final_project.git](https://github.com/cuttlefeesh/bigdata_final_project.git)
-cd bigdata_final_project
-pip install -r requirements.txt
