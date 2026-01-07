@@ -1,0 +1,7 @@
+pandas
+numpy
+gdown
+psycopg2-binary
+matplotlib
+seaborn
+scikit-learn
